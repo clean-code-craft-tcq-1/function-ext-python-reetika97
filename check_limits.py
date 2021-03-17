@@ -11,15 +11,15 @@ def breach_L_H(Battery_readings):
     print(Battery_range[i], Battery_readings[i])
     if (Battery_readings[i])<(Battery_range[i][0]):
       Reading_status[i]='L'
-      print('hi')
+      
     elif (Battery_readings[i])>(Battery_range[i][1]):
       Reading_status[i]='H'
-      print('hi')
+      
   print(Reading_status)
   return Reading_status
     
 
-def battery_is_ok(Battery_Readings):
+def battery_is_ok(Battery_readings):
   Reading_status=breach_L_H(Battery_readings)
   print(Reading_status)
   if 'L' in Reading_status or 'H' in Reading_status:
