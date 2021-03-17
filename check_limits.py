@@ -1,18 +1,33 @@
+import sys  
 
-def battery_is_ok(temperature, soc, charge_rate):
-  if temperature < 0 or temperature > 45:
-    print('Temperature is out of range!')
-    return False
-  elif soc < 20 or soc > 80:
-    print('State of Charge is out of range!')
-    return False
-  elif charge_rate > 0.8:
-    print('Charge rate is out of range!')
-    return False
+no_para = 3
 
-  return True
+Battery_range= [[0,45], [20,80], [-sys.maxsize,0.8]]
+Battery_parameters =['temperature', 'soc', 'charge_rate'] 
+
+def breach_L_H(Battery_readings):
+  Reading_status=['n','n','n']
+  for i in range(0, no_para):
+    print(Battery_range[i], Battery_readings[i])
+    if (Battery_readings[i])<(Battery_range[i][0]):
+      Reading_status[i]='L'
+      print('hi')
+    elif (Battery_readings[i])>(Battery_range[i][1]):
+      Reading_status[i]='H'
+      print('hi')
+  print(Reading_status)
+  return Reading_status
+    
+
+def battery_is_ok(Battery_Readings):
+  Reading_status=breach_L_H(Battery_readings)
+  print(Reading_status)
+  if 'L' in Reading_status or 'H' in Reading_status:
+    return False
+  else:
+    return True
 
 
 if __name__ == '__main__':
-  assert(battery_is_ok(25, 70, 0.7) is True)
-  assert(battery_is_ok(50, 85, 0) is False)
+  assert(battery_is_ok([25, 70, 0.7]) is True)
+  assert(battery_is_ok([50, 85, 0]) is False)
